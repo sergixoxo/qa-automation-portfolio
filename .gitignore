@@ -14,3 +14,6 @@ __pycache__/
 # Sistema operativo y editor
 .DS_Store
 .vscode/
+
+# Reportes de pruebas
+reports/
