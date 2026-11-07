@@ -29,7 +29,7 @@ jobs:
         run: python -m playwright install --with-deps chromium
 
       - name: Run automated tests
-        run: pytest -v --html=report.html --self-contained-html
+        run: pytest -v --html=report.html --self-contained-html --screenshot only-on-failure --tracing retain-on-failure --output=test-results
 
       - name: Upload HTML test report
         if: always()
@@ -37,3 +37,11 @@ jobs:
         with:
           name: pytest-html-report
           path: report.html
+
+      - name: Upload Playwright failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failure-evidence
+          path: test-results/
+          if-no-files-found: ignore

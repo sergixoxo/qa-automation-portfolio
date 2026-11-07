@@ -17,3 +17,9 @@ __pycache__/
 
 # Reportes de pruebas
 reports/
+
+# Resultados de pruebas
+test-results/
+
+# Reportes
+report.html
