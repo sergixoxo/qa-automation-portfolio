@@ -1,6 +1,6 @@
 # QA Automation Portfolio
 
-A QA automation portfolio project built with Python, Pytest, Playwright, and Requests. This project demonstrates practical skills in UI testing, API testing, test organization, and Continuous Integration.
+A QA Automation portfolio project built with Python, Pytest, Playwright, and Requests. This project demonstrates practical skills in UI testing, API testing, test organization, Page Object Model (POM), and Continuous Integration.
 
 ![CI](https://github.com/sergixoxo/qa-automation-portfolio/actions/workflows/tests.yml/badge.svg)
 
@@ -8,20 +8,23 @@ A QA automation portfolio project built with Python, Pytest, Playwright, and Req
 
 This project contains automated tests for web applications and REST APIs.
 
-The main objective is to develop practical QA automation skills, applying testing concepts such as:
+The main objective is to develop practical QA automation skills by applying testing concepts such as:
 
 - Positive and negative test scenarios.
 - UI and API validation.
 - Page Object Model (POM).
 - Test organization using Pytest.
+- Browser automation with Playwright.
 - Continuous Integration with GitHub Actions.
+- Test reporting and failure evidence.
 
 ## Technologies
 
 - **Python 3.14** — Programming language.
 - **Pytest** — Test execution and organization.
-- **Playwright** — Browser automation.
+- **Playwright** — Browser automation and UI testing.
 - **Requests** — HTTP requests and API testing.
+- **pytest-html** — HTML test reporting.
 - **Git and GitHub** — Version control.
 - **GitHub Actions** — Continuous Integration (CI).
 
@@ -38,7 +41,8 @@ qa-automation-portfolio/
 │   ├── test_api.py
 │   ├── test_homepage.py
 │   ├── test_saucedemo.py
-│   └── test_saucedemo_login_negative.py
+│   ├── test_saucedemo_login_negative.py
+│   └── test_saucedemo_purchase.py
 ├── conftest.py
 ├── requirements.txt
 ├── .gitignore
@@ -49,17 +53,26 @@ qa-automation-portfolio/
 
 ### UI Testing — Playwright
 
-**Playwright Homepage**
+**Homepage Testing**
 - Verify successful HTTP response.
 - Validate expected page title.
 - Verify main heading visibility.
 
-**SauceDemo Login**
+**SauceDemo Login Testing**
 - Successful login with valid credentials.
 - Login with invalid credentials.
 - Login with empty username.
 - Login with empty password.
 - Login with locked-out user.
+
+**SauceDemo Purchase Flow**
+- Login with valid credentials.
+- Verify product visibility and price.
+- Add a product to the shopping cart.
+- Validate cart contents.
+- Complete checkout information.
+- Validate checkout summary and total.
+- Finish the purchase and verify confirmation.
 
 ### API Testing — Requests
 
@@ -71,9 +84,17 @@ qa-automation-portfolio/
 
 | Test Category | Test Cases |
 |---|---:|
-| UI Testing | 8 |
+| UI Testing | 9 |
 | API Testing | 2 |
-| **Total** | **10** |
+| **Total** | **11** |
+
+## Test Architecture
+
+The project uses the **Page Object Model (POM)** to separate page elements and interactions from test logic.
+
+The `pages/` directory contains reusable page objects, while the `tests/` directory contains the automated test scenarios.
+
+This approach improves code organization, maintainability, and reusability.
 
 ## Prerequisites
 
@@ -119,16 +140,22 @@ Run the complete test suite:
 pytest -v
 ```
 
-Run only UI tests:
+Run UI tests:
 
 ```bash
-pytest tests/test_homepage.py tests/test_saucedemo.py tests/test_saucedemo_login_negative.py -v
+pytest tests/test_homepage.py tests/test_saucedemo.py tests/test_saucedemo_login_negative.py tests/test_saucedemo_purchase.py -v
 ```
 
-Run only API tests:
+Run API tests:
 
 ```bash
 pytest tests/test_api.py -v
+```
+
+Generate a local HTML report:
+
+```bash
+pytest -v --html=report.html --self-contained-html
 ```
 
 ## Continuous Integration
@@ -147,8 +174,11 @@ The pipeline performs the following steps:
 3. Installs project dependencies.
 4. Installs Playwright and Chromium.
 5. Executes all automated tests using Pytest.
+6. Generates a self-contained HTML test report.
+7. Uploads the HTML report as a GitHub Actions artifact.
+8. Configures screenshots and Playwright traces to be retained when tests fail.
 
-The current CI workflow successfully executes all 10 automated tests.
+The current CI workflow successfully executes all **11 automated tests**.
 
 [View GitHub Actions](https://github.com/sergixoxo/qa-automation-portfolio/actions)
 
@@ -165,11 +195,11 @@ All suggested changes are reviewed, understood, and tested as part of the learni
 
 ## Future Improvements
 
-- Implement automated test reporting.
 - Expand API test coverage.
-- Add more UI scenarios.
+- Add more UI test scenarios.
 - Explore data-driven testing.
-- Improve test coverage and maintainability.
+- Implement additional test design techniques.
+- Explore advanced automation and reporting strategies.
 
 ## Author
 
