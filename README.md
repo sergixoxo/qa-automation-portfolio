@@ -82,14 +82,17 @@ qa-automation-portfolio/
 - Retrieve posts using query parameters (`userId`).
 - Validate JSON response structure and data consistency.
 - Validate response fields and data types.
+- Send POST requests to create new posts.
+- Validate HTTP 201 Created response.
+- Validate POST response data against the submitted payload.
 
 ## Test Summary
 
 | Test Category | Test Cases |
 |---|---:|
 | UI Testing | 9 |
-| API Testing | 3 |
-| **Total** | **12** |
+| API Testing | 4 |
+| **Total** | **13** |
 
 ## Test Architecture
 
@@ -181,7 +184,7 @@ The pipeline performs the following steps:
 7. Uploads the HTML report as a GitHub Actions artifact.
 8. Configures screenshots and Playwright traces to be retained when tests fail.
 
-The current CI workflow successfully executes all **12 automated tests**.
+The current CI workflow successfully executes all **13 automated tests**.
 
 [View GitHub Actions](https://github.com/sergixoxo/qa-automation-portfolio/actions)
 

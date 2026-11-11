@@ -39,3 +39,26 @@ def test_get_posts_by_user():
 
     for post in data:
         assert post["userId"] == 1
+
+
+def test_create_post():
+    payload = {
+        "title": "QA Automation Portfolio",
+        "body": "Learning API testing with Python and Requests",
+        "userId": 1
+    }
+
+    response = requests.post(
+        f"{BASE_URL}/posts",
+        json=payload,
+        timeout=10
+    )
+
+    assert response.status_code == 201
+
+    data = response.json()
+
+    assert data["title"] == payload["title"]
+    assert data["body"] == payload["body"]
+    assert data["userId"] == payload["userId"]
+    assert "id" in data
