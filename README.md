@@ -79,14 +79,17 @@ qa-automation-portfolio/
 **JSONPlaceholder API**
 - Validate successful GET request for an existing post.
 - Validate HTTP 404 response for a nonexistent post.
+- Retrieve posts using query parameters (`userId`).
+- Validate JSON response structure and data consistency.
+- Validate response fields and data types.
 
 ## Test Summary
 
 | Test Category | Test Cases |
 |---|---:|
 | UI Testing | 9 |
-| API Testing | 2 |
-| **Total** | **11** |
+| API Testing | 3 |
+| **Total** | **12** |
 
 ## Test Architecture
 
@@ -178,7 +181,7 @@ The pipeline performs the following steps:
 7. Uploads the HTML report as a GitHub Actions artifact.
 8. Configures screenshots and Playwright traces to be retained when tests fail.
 
-The current CI workflow successfully executes all **11 automated tests**.
+The current CI workflow successfully executes all **12 automated tests**.
 
 [View GitHub Actions](https://github.com/sergixoxo/qa-automation-portfolio/actions)
 
@@ -195,9 +198,9 @@ All suggested changes are reviewed, understood, and tested as part of the learni
 
 ## Future Improvements
 
-- Expand API test coverage.
+- Implement API POST requests and resource creation tests.
 - Add more UI test scenarios.
-- Explore data-driven testing.
+- Explore data-driven testing with Pytest parametrization.
 - Implement additional test design techniques.
 - Explore advanced automation and reporting strategies.
 
