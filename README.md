@@ -91,8 +91,8 @@ qa-automation-portfolio/
 | Test Category | Test Cases |
 |---|---:|
 | UI Testing | 9 |
-| API Testing | 4 |
-| **Total** | **13** |
+| API Testing | 8 |
+| **Total** | **17** |
 
 ## Test Architecture
 
@@ -184,7 +184,7 @@ The pipeline performs the following steps:
 7. Uploads the HTML report as a GitHub Actions artifact.
 8. Configures screenshots and Playwright traces to be retained when tests fail.
 
-The current CI workflow successfully executes all **13 automated tests**.
+The current CI workflow successfully executes all 17 automated test cases, including parametrized positive and negative API scenarios.
 
 [View GitHub Actions](https://github.com/sergixoxo/qa-automation-portfolio/actions)
 

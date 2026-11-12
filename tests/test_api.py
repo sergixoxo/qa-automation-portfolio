@@ -1,24 +1,33 @@
 import requests
+import pytest
 
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
+@pytest.mark.parametrize(
+    "post_id",
+    [1, 2, 3]
+)
 
-def test_get_existing_post():
-    response = requests.get(f"{BASE_URL}/posts/1", timeout=10)
+def test_get_existing_post(post_id):
+    response = requests.get(f"{BASE_URL}/posts/{post_id}", timeout=10)
 
     assert response.status_code == 200
 
     data = response.json()
 
-    assert data["id"] == 1
+    assert data["id"] == post_id
     assert data["userId"] == 1
     assert data["title"] != ""
     assert isinstance(data["title"], str)
     assert data["title"].strip() != ""
 
-def test_get_nonexistent_post():
-    response = requests.get(f"{BASE_URL}/posts/999999", timeout=10)
+@pytest.mark.parametrize(
+    "post_id",
+    [999999, 100000, 888888]
+)
+def test_get_nonexistent_post(post_id):
+    response = requests.get(f"{BASE_URL}/posts/{post_id}", timeout=10)
 
     assert response.status_code == 404
 
