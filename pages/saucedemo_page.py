@@ -21,6 +21,11 @@ class SauceDemoPage:
         self.add_to_cart_button = self.backpack.get_by_role(
             "button", name="Add to cart"
         )
+        self.inventory_items = page.locator(".inventory_item")
+        self.product_images = page.locator(".inventory_item_img img")
+        self.remove_button = self.backpack.get_by_role(
+            "button", name="Remove"
+        )
 
         # Shopping cart
         self.shopping_cart_link = page.locator(".shopping_cart_link")

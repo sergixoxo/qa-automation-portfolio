@@ -35,6 +35,10 @@ qa-automation-portfolio/
 ├── .github/
 │   └── workflows/
 │       └── tests.yml
+├── docs/
+│   └── bugs/
+│       ├── BUG-001.md
+│       └── BUG-002.md
 ├── pages/
 │   └── saucedemo_page.py
 ├── tests/
@@ -90,9 +94,16 @@ qa-automation-portfolio/
 
 | Test Category | Test Cases |
 |---|---:|
-| UI Testing | 9 |
+| UI Testing | 11 |
 | API Testing | 8 |
-| **Total** | **17** |
+| **Total** | **19** |
+
+**Latest execution:** 17 passed, 2 expected failures (XFAIL).
+
+The two expected failures correspond to documented SauceDemo defects affecting `problem_user`:
+
+- BUG-001: Incorrect product images.
+- BUG-002: Remove button not working.
 
 ## Test Architecture
 
@@ -184,7 +195,9 @@ The pipeline performs the following steps:
 7. Uploads the HTML report as a GitHub Actions artifact.
 8. Configures screenshots and Playwright traces to be retained when tests fail.
 
-The current CI workflow successfully executes all 17 automated test cases, including parametrized positive and negative API scenarios.
+The current CI workflow executes all 19 automated test cases, including parametrized API scenarios and automated tests documenting known SauceDemo defects.
+
+The two known defects are marked as expected failures (XFAIL), allowing the test suite to report them without treating them as unexpected failures.
 
 [View GitHub Actions](https://github.com/sergixoxo/qa-automation-portfolio/actions)
 
@@ -201,11 +214,10 @@ All suggested changes are reviewed, understood, and tested as part of the learni
 
 ## Future Improvements
 
-- Implement API POST requests and resource creation tests.
-- Add more UI test scenarios.
-- Explore data-driven testing with Pytest parametrization.
-- Implement additional test design techniques.
+- Create user stories with clear acceptance criteria.
+- Expand UI and API test coverage.
 - Explore advanced automation and reporting strategies.
+- Improve automated regression coverage for known defects.
 
 ## Author
 
