@@ -4,17 +4,25 @@ A QA Automation portfolio project built with Python, Pytest, Playwright, and Req
 
 ![CI](https://github.com/sergixoxo/qa-automation-portfolio/actions/workflows/tests.yml/badge.svg)
 
+
 ## Project Overview
 
-This project contains automated tests for web applications and REST APIs.
+This project demonstrates practical Quality Assurance (QA)
+and Test Automation skills through functional testing,
+automated UI and API testing, and requirements analysis.
 
-The main objective is to develop practical QA automation skills by applying testing concepts such as:
+The main objective is to apply testing concepts such as:
 
 - Positive and negative test scenarios.
 - UI and API validation.
 - Page Object Model (POM).
-- Test organization using Pytest.
+- Test organization and parametrization using Pytest.
 - Browser automation with Playwright.
+- User stories and acceptance criteria.
+- Functional test case design and manual execution.
+- Requirements Traceability Matrix (RTM).
+- Defect identification, reporting, and reproduction.
+- Expected failure management (XFAIL).
 - Continuous Integration with GitHub Actions.
 - Test reporting and failure evidence.
 
@@ -28,6 +36,7 @@ The main objective is to develop practical QA automation skills by applying test
 - **Git and GitHub** — Version control.
 - **GitHub Actions** — Continuous Integration (CI).
 
+
 ## Project Structure
 
 ```text
@@ -36,9 +45,15 @@ qa-automation-portfolio/
 │   └── workflows/
 │       └── tests.yml
 ├── docs/
-│   └── bugs/
-│       ├── BUG-001.md
-│       └── BUG-002.md
+│   ├── bugs/
+│   │   ├── BUG-001.md
+│   │   ├── BUG-002.md
+│   │   └── BUG-003.md
+│   ├── requirements/
+│   │   ├── US-001.md
+│   │   └── traceability-matrix.md
+│   └── test-cases/
+│       └── shopping-cart.md
 ├── pages/
 │   └── saucedemo_page.py
 ├── tests/
@@ -69,14 +84,24 @@ qa-automation-portfolio/
 - Login with empty password.
 - Login with locked-out user.
 
+
 **SauceDemo Purchase Flow**
 - Login with valid credentials.
 - Verify product visibility and price.
 - Add a product to the shopping cart.
-- Validate cart contents.
+- Validate shopping cart counter.
+- Verify button transition from "Add to cart" to "Remove".
+- Validate product name, price, and exact quantity.
 - Complete checkout information.
 - Validate checkout summary and total.
 - Finish the purchase and verify confirmation.
+
+**SauceDemo Defect Reproduction**
+- BUG-001: Incorrect product images using `problem_user`.
+- BUG-002: Remove button not working using `problem_user`.
+- BUG-003: Checkout allowed with an empty cart using `standard_user` (potential defect based on a proposed business rule).
+
+These scenarios are marked as expected failures (XFAIL).
 
 ### API Testing — Requests
 
@@ -92,18 +117,70 @@ qa-automation-portfolio/
 
 ## Test Summary
 
-| Test Category | Test Cases |
+| Test Category | Total | Passed | Expected Failures |
+|---|---:|---:|---:|
+| UI Testing | 12 | 9 | 3 |
+| API Testing | 8 | 8 | 0 |
+| **Total** | **20** | **17** | **3** |
+
+### Latest Local Execution
+
+- Total tests: 20.
+- Passed: 17.
+- Expected failures (XFAIL): 3.
+- Unexpected failures: 0.
+- Execution time: 15.43 seconds.
+
+### Expected Failures
+
+- [BUG-001](docs/bugs/BUG-001.md): Incorrect product images.
+- [BUG-002](docs/bugs/BUG-002.md): Remove button not working.
+- [BUG-003](docs/bugs/BUG-003.md): Checkout allowed with an empty cart.
+
+Expected failures are documented using Pytest's
+`xfail` marker to track reproduced defects.
+
+BUG-003 is classified as a potential defect based
+on a proposed business rule rather than an official
+SauceDemo requirement.
+
+## Requirements and Traceability
+
+The project includes functional QA documentation
+that demonstrates the relationship between business
+requirements, acceptance criteria, test cases,
+automated tests, and defect reports.
+
+### Documentation
+
+- [User Story — US-001](docs/requirements/US-001.md)
+- [Functional Test Cases](docs/test-cases/shopping-cart.md)
+- [Requirements Traceability Matrix (RTM)](docs/requirements/traceability-matrix.md)
+
+### Requirements Coverage
+
+| Metric | Result |
 |---|---:|
-| UI Testing | 11 |
-| API Testing | 8 |
-| **Total** | **19** |
+| User Stories | 1 |
+| Acceptance Criteria | 6 |
+| Designed Test Cases | 6 |
+| Automated Acceptance Criteria | 6 |
+| Satisfied Acceptance Criteria | 5 |
+| Unsatisfied Acceptance Criteria | 1 |
+| Requirements Automation Coverage | 100% |
+| Acceptance Criteria Satisfaction Rate | 83.33% |
 
-**Latest execution:** 17 passed, 2 expected failures (XFAIL).
+### Defect Reports
 
-The two expected failures correspond to documented SauceDemo defects affecting `problem_user`:
+- [BUG-001 — Incorrect Product Images](docs/bugs/BUG-001.md)
+- [BUG-002 — Remove Button Not Working](docs/bugs/BUG-002.md)
+- [BUG-003 — Checkout Allowed with an Empty Cart](docs/bugs/BUG-003.md)
 
-- BUG-001: Incorrect product images.
-- BUG-002: Remove button not working.
+The requirements were defined for portfolio purposes
+and are not official SauceDemo requirements.
+
+BUG-003 is classified as a potential defect based
+on a proposed business rule.
 
 ## Test Architecture
 
@@ -175,31 +252,64 @@ Generate a local HTML report:
 pytest -v --html=report.html --self-contained-html
 ```
 
+### Run Tests in Headed Mode
+
+Execute tests with a visible browser:
+
+```bash
+pytest -v --headed
+```
+
+### Run the Purchase Flow with Slow Motion
+
+Execute purchase tests with a visible browser
+and a 500 ms delay between Playwright actions:
+
+```bash
+pytest tests/test_saucedemo_purchase.py -v --headed --slowmo 500
+```
+
+### Display Expected Failure Reasons
+
+Execute the complete test suite and display
+the reasons for documented expected failures:
+
+```bash
+pytest -v -rx
+```
+
 ## Continuous Integration
 
-This project uses GitHub Actions to automatically execute the test suite.
+This project uses GitHub Actions to automatically
+execute the test suite on pushes and pull requests
+to the `main` branch.
 
-The workflow is triggered by:
-
-- Push events to the `main` branch.
-- Pull requests targeting the `main` branch.
-
-The pipeline performs the following steps:
+The CI pipeline performs the following steps:
 
 1. Checks out the repository.
-2. Sets up Python.
+2. Sets up Python 3.14.
 3. Installs project dependencies.
 4. Installs Playwright and Chromium.
-5. Executes all automated tests using Pytest.
-6. Generates a self-contained HTML test report.
-7. Uploads the HTML report as a GitHub Actions artifact.
-8. Configures screenshots and Playwright traces to be retained when tests fail.
+5. Executes the automated test suite.
+6. Generates an HTML test report.
+7. Uploads test reports and available failure evidence
+   as workflow artifacts.
 
-The current CI workflow executes all 19 automated test cases, including parametrized API scenarios and automated tests documenting known SauceDemo defects.
+### Regression Suite
 
-The two known defects are marked as expected failures (XFAIL), allowing the test suite to report them without treating them as unexpected failures.
+The pipeline is configured to execute 20 automated
+tests:
 
-[View GitHub Actions](https://github.com/sergixoxo/qa-automation-portfolio/actions)
+- 12 UI tests.
+- 8 API tests.
+- 3 documented expected failures.
+
+Test reports and available failure evidence can be
+downloaded from the GitHub Actions workflow artifacts.
+
+Expected failures are tracked using Pytest's `xfail`
+marker to distinguish documented defects from
+unexpected test failures.
 
 ## AI Usage
 
@@ -214,10 +324,13 @@ All suggested changes are reviewed, understood, and tested as part of the learni
 
 ## Future Improvements
 
-- Create user stories with clear acceptance criteria.
-- Expand UI and API test coverage.
-- Explore advanced automation and reporting strategies.
-- Improve automated regression coverage for known defects.
+- Expand UI and API regression test coverage.
+- Add cross-browser testing with Firefox and WebKit.
+- Attach visual evidence to documented defect reports.
+- Expand requirements traceability to additional modules.
+- Improve test data management and environment configuration.
+- Extend automated reporting and test execution metrics.
+- Enhance checkout validation with explicit rejection signals.
 
 ## Author
 

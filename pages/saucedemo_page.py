@@ -30,6 +30,7 @@ class SauceDemoPage:
         # Shopping cart
         self.shopping_cart_link = page.locator(".shopping_cart_link")
         self.cart_item = page.locator(".cart_item")
+        self.cart_item_quantity = self.cart_item.locator(".cart_quantity")
         self.checkout_button = page.get_by_role("button", name="Checkout")
 
         # Checkout information
